@@ -11,7 +11,6 @@ fun String.read() :String? {
 object Params{
     val ROWS = 6
     val COLUMNS = 5
-    var matrix: MutableList<MutableList<Char>> = mutableListOf(mutableListOf())
     val alphabet = mutableListOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '.', ',', ' ', '-')
 
 }
@@ -22,12 +21,13 @@ class EncryptMatrixGenerator {
 
 
     fun generate (dest: String) :  MutableList<MutableList<Char>> {
+        val matrix: MutableList<MutableList<Char>> = mutableListOf(mutableListOf())
         val keyword = readFromFile(dest)
         val remain = Params.alphabet
         val result: MutableList<Char> = mutableListOf()
         for (c in keyword) {
             if (remain.contains(c)) {
-                result.add(c)
+                result += c
                 remain.remove(c)
             }
         }
