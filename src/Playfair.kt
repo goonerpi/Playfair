@@ -29,10 +29,27 @@ data class Dot(val posX : Int, val posY :Int){
 
 class Bigram(val first : Dot, val second : Dot){
 
-    fun getPair(input : Bigram){
-        if (first.posX == second.posX){
-            val out1 = Dot()
+    fun getPair(): Bigram {
+        val outBigram : Bigram
+        when {
+            first.posX == second.posX -> {
+                val outDot1 = Dot(first.posX, (first.posY+1).rem(Params.COLUMNS))
+                val outDot2 = Dot(second.posX, (second.posY+1).rem(Params.COLUMNS))
+                outBigram = Bigram(outDot1, outDot2)
+            }
+            first.posY == second.posY -> {
+                val outDot1 = Dot((first.posX+1).rem(Params.ROWS), first.posY)
+                val outDot2 = Dot((second.posX+1).rem(Params.ROWS), second.posY)
+                outBigram = Bigram(outDot1, outDot2)
+            }
+            else -> {
+                val outDot1 = Dot(first.posX, second.posY)
+                val outDot2 = Dot(second.posX, first.posY)
+                outBigram = Bigram(outDot1, outDot2)
+            }
         }
+        print(outBigram)
+        return outBigram
     }
 }
 

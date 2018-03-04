@@ -9,4 +9,5 @@ const val OUTPUT_TEXT = "C:\\Users\\pavel\\IdeaProjects\\Playfair\\src\\output.t
     fun main(args : Array<String>){
 
         val playfair = Playfair().performText()
+
     }
