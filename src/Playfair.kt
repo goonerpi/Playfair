@@ -10,7 +10,7 @@ fun readFromFile(readFrom : String) : String{
 
         while (line != null){
             sb.append(line)
-            sb.append(System.lineSeparator())
+            sb.append("-")
             line = it.readLine()
 
         }
@@ -79,6 +79,7 @@ class Bigram(private val first : Dot, private val second : Dot){
 class Playfair{
 
     var text : String = readFromFile(INPUT_TEXT)
+    val bigramSet = mutableListOf<Bigram>()
 
     fun performText(){
         var isCheckedOdd = false
@@ -119,9 +120,9 @@ class Playfair{
         return kek
     }
 
-    fun createBigramSet() : MutableList<Bigram>{
-        val bigramSet = mutableListOf<Bigram>()
-        for (c in 0 until text.length step 2){
+    fun createBigramSet(){
+        //val bigramSet = mutableListOf<Bigram>()
+        for (c in 0 until text.length-1 step 2) {
             val pos1 = findPosByChar(text[c])
             val pos2 = findPosByChar(text[c + 1])
             val dot1 = Dot(pos1[0], pos1[1])
@@ -129,7 +130,11 @@ class Playfair{
             val bigram = Bigram(dot1, dot2)
             bigramSet.add(bigram)
         }
-        return bigramSet
+    }
+
+    fun encode(){
+        createBigramSet()
+        for (bigram in bigramSet) bigram.encodeBigram()
     }
 
 

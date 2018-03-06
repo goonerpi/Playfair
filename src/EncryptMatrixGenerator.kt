@@ -19,7 +19,7 @@ class EncryptMatrixGenerator {
 
     fun generate (dest: String) :  MutableList<MutableList<Char>> {
         val matrix: MutableList<MutableList<Char>> = mutableListOf(mutableListOf())
-        val keyword = readFromFile(dest)
+        val keyword = readFromFile(dest).dropLast(1)
         val remain = Params.alphabet
         val result: MutableList<Char> = mutableListOf()
         for (c in keyword) {
