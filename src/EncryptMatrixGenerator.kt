@@ -1,17 +1,7 @@
-import java.io.*
-
-/*fun String.read() :String? {
-    val reader = BufferedReader(FileReader(this))
-    val keyword = reader.readLine().toString().toUpperCase()
-    reader.close()
-    println(keyword)
-    return keyword
-}*/
-
 object Params{
-    val ROWS = 6
-    val COLUMNS = 5
-    val alphabet = mutableListOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '.', ',', ' ', '-')
+    const val ROWS = 6
+    const val COLUMNS = 5
+    val alphabet = mutableListOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '.', ' ', '=', '-')
 }
 
 class EncryptMatrixGenerator {
@@ -19,7 +9,7 @@ class EncryptMatrixGenerator {
 
     fun generate (dest: String) :  MutableList<MutableList<Char>> {
         val matrix: MutableList<MutableList<Char>> = mutableListOf(mutableListOf())
-        val keyword = readFromFile(dest).dropLast(1)
+        val keyword = readFromFile(dest)
         val remain = Params.alphabet
         val result: MutableList<Char> = mutableListOf()
         for (c in keyword) {
