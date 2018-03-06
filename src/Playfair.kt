@@ -10,26 +10,26 @@ fun readFromFile(readFrom : String) : String{
 
         while (line != null){
             sb.append(line)
-            sb.append(" ")
+            sb.append(System.lineSeparator())
             line = it.readLine()
 
         }
-        sb.deleteCharAt(sb.length-1)
+       // sb.deleteCharAt(sb.length-1)
         val everything = sb.toString().toUpperCase()
-        println(everything)
+        println("Old text : $everything")
         return everything
     }
 }
 
 data class Dot(val posX : Int, val posY :Int){
+
     val char : Char
         get() = matrix[posX][posY]
-
 }
 
-class Bigram(val first : Dot, val second : Dot){
+class Bigram(private val first : Dot, private val second : Dot){
 
-    fun getPair(): Bigram {
+    fun encodeBigram(): Bigram {
         val outBigram : Bigram
         when {
             first.posX == second.posX -> {
@@ -49,6 +49,29 @@ class Bigram(val first : Dot, val second : Dot){
             }
         }
         print(outBigram)
+        return outBigram
+    }
+
+    fun decodeBigram(): Bigram {
+        val outBigram : Bigram
+        when {
+            first.posX == second.posX -> {
+                val outDot1 = Dot(first.posX, (first.posY + (Params.COLUMNS - 1)).rem(Params.COLUMNS))
+                val outDot2 = Dot(second.posX, (second.posY + (Params.COLUMNS - 1)).rem(Params.COLUMNS))
+                outBigram = Bigram(outDot1, outDot2)
+            }
+            first.posY == second.posY -> {
+                val outDot1 = Dot((first.posX + (Params.ROWS - 1)).rem(Params.ROWS), first.posY)
+                val outDot2 = Dot((second.posX + (Params.ROWS - 1)).rem(Params.ROWS), second.posY)
+                outBigram = Bigram(outDot1, outDot2)
+            }
+            else -> {
+                val outDot1 = Dot(first.posX, second.posY)
+                val outDot2 = Dot(second.posX, first.posY)
+                outBigram = Bigram(outDot1, outDot2)
+            }
+        }
+        //print(outBigram)
         return outBigram
     }
 }
@@ -86,6 +109,27 @@ class Playfair{
         while (!isCheckedOdd || !isCheckedRep)
 
         print("New text : $text")
+    }
+
+    fun findPosByChar(c : Char) : MutableList<Int>{
+        var kek = mutableListOf<Int>()
+        for (i in 0 until Params.ROWS)
+            for (j in 0 until Params.COLUMNS)
+                if (c == matrix[i][j]) kek = mutableListOf(i,j)
+        return kek
+    }
+
+    fun createBigramSet() : MutableList<Bigram>{
+        val bigramSet = mutableListOf<Bigram>()
+        for (c in 0 until text.length step 2){
+            val pos1 = findPosByChar(text[c])
+            val pos2 = findPosByChar(text[c + 1])
+            val dot1 = Dot(pos1[0], pos1[1])
+            val dot2 = Dot(pos2[0], pos2[1])
+            val bigram = Bigram(dot1, dot2)
+            bigramSet.add(bigram)
+        }
+        return bigramSet
     }
 
 

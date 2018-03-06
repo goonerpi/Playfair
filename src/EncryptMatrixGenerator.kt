@@ -1,23 +1,20 @@
 import java.io.*
 
-fun String.read() :String? {
+/*fun String.read() :String? {
     val reader = BufferedReader(FileReader(this))
     val keyword = reader.readLine().toString().toUpperCase()
     reader.close()
     println(keyword)
     return keyword
-}
+}*/
 
 object Params{
     val ROWS = 6
     val COLUMNS = 5
     val alphabet = mutableListOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '.', ',', ' ', '-')
-
 }
 
 class EncryptMatrixGenerator {
-
-
 
 
     fun generate (dest: String) :  MutableList<MutableList<Char>> {
