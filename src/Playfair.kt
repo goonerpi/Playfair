@@ -14,8 +14,7 @@ fun readFromFile(readFrom : String) : String{
             line = it.readLine()
 
         }
-        sb.deleteCharAt(sb.length-1)
-        val everything = sb.toString().replace(",", "").toUpperCase()
+        val everything = sb.deleteCharAt(sb.length-1).toString().replace(",", "").toUpperCase()
         println(everything)
         return everything
     }
