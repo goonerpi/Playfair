@@ -73,11 +73,7 @@ class Bigram(val first : Dot, val second : Dot){
         return outBigram
     }
 
-    fun convertToText() : String{
-        val sb = StringBuilder()
-        sb.append(first.char).append(second.char)
-        return sb.toString()
-    }
+    fun convertToText() : String = StringBuilder().append(first.char).append(second.char).toString()
 }
 
 class Playfair{
